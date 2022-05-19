@@ -1,13 +1,12 @@
 package com.creartpro.inappreviewkotlinjava
 
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.creartpro.inappreviewkotlinjava.databinding.ActivityMainBinding
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.tasks.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,16 +29,15 @@ class MainActivity : AppCompatActivity() {
             if(task.isSuccessful)
                 reviewInfo = task.result
             else
-                Toast.makeText(this, "Review failed to start", Toast.LENGTH_SHORT).show()
+                Log.e("MSG", "Review failed to start")
         }
     }
-
 
     private fun showRateDialog() {
         if(reviewInfo != null){
             val flow = manager.launchReviewFlow(this, reviewInfo!!)
-            flow.addOnCompleteListener { task ->
-                Toast.makeText(this, "Rating is complete", Toast.LENGTH_SHORT).show()
+            flow.addOnCompleteListener {
+                Log.i("MSG", "Rating Success")
             }
         }
     }
